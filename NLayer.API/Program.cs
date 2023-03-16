@@ -3,6 +3,8 @@ using NLayer.Core.Repositories;
 using NLayer.Core.Services;
 using NLayer.Repository;
 using NLayer.Repository.Repositories;
+using NLayer.Service.Mapping;
+using NLayer.Service.Services;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,7 +25,8 @@ builder.Services.AddDbContext<AppDbContext>(x =>
     });
 });
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-//builder.Services.AddScoped(typeof(IServices<>),typeof(Services<>));
+builder.Services.AddScoped(typeof(IServices<>),typeof(Services<>));
+builder.Services.AddAutoMapper(typeof(MapProfile));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
