@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace NLayer.Core.DTOs
 {
-    internal class NoContentDTO
+    public class NoContentDTO
     {
+
+        // CustomResponseDTO da data boşsa null dönebilir ya da ayrı bir class ile de tasarlayabilirim. 
+        //Hocanın yoğurt yiyişi buymuş....
     }
 }
