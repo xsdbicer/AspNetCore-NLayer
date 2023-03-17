@@ -12,6 +12,7 @@ namespace NLayer.Core.Models
         public int Stock { get; set; }
         public decimal Price { get; set; }
         public int CategoryId { get; set; }
+        public Category Category { get; set; }
         //Dikkat edersek Product ve productfeature arasındaki ilişki one-to-one olduğundan tek bir nesne belittik.
         public ProductFeature ProductFeature { get; set; }
 

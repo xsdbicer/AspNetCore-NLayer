@@ -89,9 +89,9 @@ namespace NLayer.Repository.Migrations
                 columns: new[] { "Id", "CategoryId", "CreatedDate", "Name", "Price", "Stock", "UpdateDate" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2023, 3, 13, 16, 35, 19, 169, DateTimeKind.Local).AddTicks(4243), "Kalem 1", 100m, 20, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 2, 1, new DateTime(2023, 3, 13, 16, 35, 19, 169, DateTimeKind.Local).AddTicks(4251), "Kalem 2", 200m, 20, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 3, 1, new DateTime(2023, 3, 13, 16, 35, 19, 169, DateTimeKind.Local).AddTicks(4252), "Kalem 2", 400m, 20, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { 1, 1, new DateTime(2023, 3, 17, 13, 28, 45, 124, DateTimeKind.Local).AddTicks(7652), "Kalem 1", 100m, 20, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2, 1, new DateTime(2023, 3, 17, 13, 28, 45, 124, DateTimeKind.Local).AddTicks(7661), "Kalem 2", 200m, 20, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 3, 1, new DateTime(2023, 3, 17, 13, 28, 45, 124, DateTimeKind.Local).AddTicks(7664), "Kalem 2", 400m, 20, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(

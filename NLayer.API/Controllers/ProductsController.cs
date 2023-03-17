@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NLayer.Core.DTOs;
 using NLayer.Core.Models;
@@ -15,10 +14,13 @@ namespace NLayer.API.Controllers
         //Burada mümkün olduğunda bussiness kod olmayacak !! BP !!
         private readonly IMapper _mapper;
         private readonly IServices<Product> _service;
-        public ProductsController(IMapper mapper, IServices<Product> service)
+        private readonly IProductService _productservice;
+
+        public ProductsController(IMapper mapper, IServices<Product> service, IProductService productservice)
         {
             _mapper = mapper;
             _service = service;
+            _productservice = productservice;
         }
 
         // get
@@ -27,13 +29,23 @@ namespace NLayer.API.Controllers
         public async Task<IActionResult> All()
         {
             // bu entity
-            var products = await _service.GetAll();
+            var products = await _service.GetAllAsync();
             // mapping işlemi
             var productDTOs=_mapper.Map<List<ProductDTO>>(products.ToList());
             //CustomBaseController yazmadan önce return tipimiz böyleydi. Eğer CustomBase olmasaydı Created, Badrequest gibi gibi sonuçların hepsi için metotlar belirtmem gerekecekti. !! BP !!
             //return Ok(CustomResponseDTO<List<ProductDTO>>.Success(productDTOs, 200));
             return CreateActionResult(CustomResponseDTO<List<ProductDTO>>.Success(productDTOs, 200));
         }
+
+
+        // get
+        // www.mysite.com/api/products/GetProductWithCategory
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetProductWithCategory()
+        {
+            return CreateActionResult(await _productservice.GetProductWithCategory());
+        }
+
 
         // get
         // www.mysite.com/api/products/5
@@ -44,6 +56,7 @@ namespace NLayer.API.Controllers
             var productDTO= _mapper.Map<ProductDTO>(product);
             return CreateActionResult(CustomResponseDTO<ProductDTO>.Success(productDTO, 200));
         }
+
 
         // post
         // www.mysite.com/api/products/5
@@ -56,6 +69,8 @@ namespace NLayer.API.Controllers
             return CreateActionResult(CustomResponseDTO<ProductDTO>.Success(productsDTO, 201));
         }
 
+
+
         [HttpPut]
         public async Task<IActionResult> Update(ProductUpdateDTO productDTO)
         {
@@ -64,6 +79,7 @@ namespace NLayer.API.Controllers
             // 204 -> NOContent
             return CreateActionResult(CustomResponseDTO<NoContentDTO>.Success( 204));
         }
+
 
         // Delete
         // www.mysite.com/api/products/5
