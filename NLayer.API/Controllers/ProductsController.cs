@@ -13,14 +13,13 @@ namespace NLayer.API.Controllers
         // mapping -> normalde service kapmanında gerçekleştirmemiz gerekiyor fakat repoda olmadığı için şuan burada yapıyoruz. v1
         //Burada mümkün olduğunda bussiness kod olmayacak !! BP !!
         private readonly IMapper _mapper;
-        private readonly IServices<Product> _service;
-        private readonly IProductService _productservice;
+        private readonly IProductService _service;
 
-        public ProductsController(IMapper mapper, IServices<Product> service, IProductService productservice)
+        public ProductsController(IMapper mapper, IProductService productservice)
         {
             _mapper = mapper;
-            _service = service;
-            _productservice = productservice;
+            _service = productservice;
+            
         }
 
         // get
@@ -43,7 +42,7 @@ namespace NLayer.API.Controllers
         [HttpGet("[action]")]
         public async Task<IActionResult> GetProductWithCategory()
         {
-            return CreateActionResult(await _productservice.GetProductWithCategory());
+            return CreateActionResult(await _service.GetProductWithCategory());
         }
 
 
