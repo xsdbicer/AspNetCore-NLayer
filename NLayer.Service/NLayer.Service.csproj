@@ -14,4 +14,9 @@
     <ProjectReference Include="..\NLayerRepository\NLayer.Repository.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Helper\" />
+    <Folder Include="Validation\" />
+  </ItemGroup>
+
 </Project>

@@ -28,14 +28,7 @@ namespace NLayer.Repository
             //Bu assembly IEntityConfiguration interface'ine sahip olan bütün classları getiriyor. 
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-            modelBuilder.Entity<ProductFeature>().HasData(new ProductFeature
-            {
-                Id = 1,
-                Color = "Kırmızı",
-                Height = 20,
-                Width = 20,
-                ProductId = 1
-            });
+           
             base.OnModelCreating(modelBuilder);
         }
     }

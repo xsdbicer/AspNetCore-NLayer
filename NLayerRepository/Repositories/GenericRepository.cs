@@ -15,9 +15,21 @@ namespace NLayer.Repository.Repositories
             
         }
 
+        public T Add(T entity)
+        {
+            var result = _dbSet.Add(entity);
+            return entity;
+        }
+
         public async Task AddAsync(T entity)
         {
             await _dbSet.AddAsync(entity);
+        }
+
+        public List<T> AddRange(IEnumerable<T> entities)
+        {
+            var result = _dbSet.Add((T)entities);
+            return entities.ToList();
         }
 
         public async Task AddRangeAsync(IEnumerable<T> entities)
@@ -53,10 +65,16 @@ namespace NLayer.Repository.Repositories
             _dbSet.RemoveRange(entities);
         }
 
-        //public void SaveChange(T entity)
-        //{
-        //    _context.SaveChanges();
-        //}
+
+
+        public void SaveChange()
+        {
+            _context.SaveChanges();
+        }
+        public async Task SaveChangeAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
 
         public void Update(T entity)
         {
