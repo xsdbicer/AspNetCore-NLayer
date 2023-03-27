@@ -1,5 +1,7 @@
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NLayer.API.Filters;
 using NLayer.Core.Repositories;
 using NLayer.Core.Services;
 using NLayer.Core.UnitOfWorks;
@@ -14,8 +16,21 @@ using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddControllers();
 
-builder.Services.AddControllers().AddFluentValidation(x=>x.RegisterValidatorsFromAssemblyContaining<ProductDTOValidator>());
+
+//TODO: 22. satýrý çalýþtýrdýðým zaman dbden hiçbir veri gelmiyor ??
+//builder.Services.AddControllers(options => options.Filters.Add(new ValidateFilterAttribute()))
+//    .AddFluentValidation(x=>x.RegisterValidatorsFromAssemblyContaining<ProductDTOValidator>());
+
+
+// TODO: kendi yazdýðým model ile hatayý döndürmek istiyorum ama çalýþmýyor!!!!
+//builder.Services.Configure<ApiBehaviorOptions>(options =>
+//{
+//    options.SuppressModelStateInvalidFilter = true;
+//});
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -28,8 +43,7 @@ builder.Services.AddDbContext<AppDbContext>(x =>
         option.MigrationsAssembly(Assembly.GetAssembly(typeof(AppDbContext)).GetName().Name);
     });
 });
-// yazmayýnca exception fýrlatýyor hayta. Deðiþtireceðiz bunu !!!
-// TODO: AddScoped yazdýðýmýzda neyi kime belirtmiþ oluyoruz?
+
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped(typeof(IServices<>),typeof(Services<>));
 
