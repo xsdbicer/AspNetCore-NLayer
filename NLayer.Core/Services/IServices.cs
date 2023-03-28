@@ -2,7 +2,7 @@
 
 namespace NLayer.Core.Services
 {
-    public interface IServices<T> where T: class
+    public interface IServices<T> where T : class
     {
         Task<T> GetByIdAsync(int id);
         Task<IEnumerable<T>> GetAllAsync();

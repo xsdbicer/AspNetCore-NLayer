@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace NLayer.Core.DTOs
 {
@@ -16,8 +11,9 @@ namespace NLayer.Core.DTOs
         public int StatusCode { get; set; }
 
         // Factor Design Pattern --  static factor metot
-        public static CustomResponseDTO<T> Success(T data,int StatusCode) {
-            return new CustomResponseDTO<T> { Data= data,StatusCode=StatusCode };
+        public static CustomResponseDTO<T> Success(T data, int StatusCode)
+        {
+            return new CustomResponseDTO<T> { Data = data, StatusCode = StatusCode };
         }
         public static CustomResponseDTO<T> Success(int StatusCode)
         {
@@ -26,12 +22,12 @@ namespace NLayer.Core.DTOs
 
         public static CustomResponseDTO<T> Fail(List<string> errors, int StatusCode)
         {
-            return new CustomResponseDTO<T> {  StatusCode = StatusCode,Errors = errors };
+            return new CustomResponseDTO<T> { StatusCode = StatusCode, Errors = errors };
         }
 
         public static CustomResponseDTO<T> Fail(string error, int StatusCode)
         {
-            return new CustomResponseDTO<T> { StatusCode = StatusCode, Errors = new List<string> { error} };
+            return new CustomResponseDTO<T> { StatusCode = StatusCode, Errors = new List<string> { error } };
         }
     }
 }

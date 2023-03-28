@@ -12,7 +12,7 @@ namespace NLayer.Repository.Repositories
 
         public async Task<Category> GetSingleCategoryByIdWithProducts(int Categoryid)
         {
-            return await _context.Categories.Include(c => c.Products).Where(c=>c.Id==Categoryid).SingleOrDefaultAsync();
+            return await _context.Categories.Include(c => c.Products).Where(c => c.Id == Categoryid).SingleOrDefaultAsync();
         }
     }
 }

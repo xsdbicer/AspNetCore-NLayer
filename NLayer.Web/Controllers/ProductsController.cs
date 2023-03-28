@@ -25,7 +25,7 @@ namespace NLayer.Web.Controllers
         }
         public async Task<IActionResult> Save()
         {
-            var categories=await _categoryService.GetAllAsync();
+            var categories = await _categoryService.GetAllAsync();
             var categoryDTO = _mapper.Map<List<CategoryDTO>>(categories.ToList());
             ViewBag.Categories = new SelectList(categoryDTO, "Id", "Name");
             return View();
@@ -34,7 +34,7 @@ namespace NLayer.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Save(ProductDTO productDto)
         {
-            
+
 
             if (ModelState.IsValid)
             {

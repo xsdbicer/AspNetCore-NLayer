@@ -7,7 +7,7 @@ using NLayer.Core.UnitOfWorks;
 
 namespace NLayer.Service.Services
 {
-    public class ProductService:Services<Product>,IProductService
+    public class ProductService : Services<Product>, IProductService
     {
         // product repositorye erişmek için
         private readonly IProductRepository _productRepository;
@@ -20,8 +20,8 @@ namespace NLayer.Service.Services
 
         public async Task<List<ProductWithCategoryDTO>> GetProductWithCategory()
         {
-            var products=await _productRepository.GetProductWithCategory();
-            var productDTO=  _mapper.Map<List<ProductWithCategoryDTO>>(products);
+            var products = await _productRepository.GetProductWithCategory();
+            var productDTO = _mapper.Map<List<ProductWithCategoryDTO>>(products);
             return productDTO;
         }
     }
