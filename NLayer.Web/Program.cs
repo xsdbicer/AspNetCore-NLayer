@@ -5,9 +5,9 @@ using NLayer.Repository;
 using NLayer.Service.Mapping;
 using System.Reflection;
 using NLayer.Web.Modules;
+using NLayer.Service.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddAutoMapper(typeof(MapProfile));
