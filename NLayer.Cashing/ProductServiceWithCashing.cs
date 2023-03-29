@@ -46,9 +46,10 @@ namespace NLayer.Cashing
             return entity;
         }
 
+        
         public async Task<Product> AddAsync(Product entity)
         {
-           await _repository.AddAsync(entity);
+            await _repository.AddAsync(entity);
             await _unitOfWork.CommitAsync();
             await CasheAllProductsAsync();
             return entity;

@@ -10,6 +10,7 @@ namespace NLayer.Service.Validations
 {
     public class ProductDTOValidator:AbstractValidator<ProductDTO>
     {
+        // TODO: Name için işlem doğru gerçekleşiyor ama diğer propertylerin error mesajı dönmüyor?
         public ProductDTOValidator()
         {
             RuleFor(x => x.Name).NotEmpty().WithMessage("{PropertyName} is required").NotNull().WithMessage("{PropertyName} is required");

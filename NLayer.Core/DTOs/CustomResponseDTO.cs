@@ -15,7 +15,7 @@ namespace NLayer.Core.DTOs
         [JsonIgnore]
         public int StatusCode { get; set; }
 
-        // Factor Design Pattern --  static factor metot
+        // Factor Design Pattern?? --  static factor metot
         public static CustomResponseDTO<T> Success(T data,int StatusCode) {
             return new CustomResponseDTO<T> { Data= data,StatusCode=StatusCode };
         }

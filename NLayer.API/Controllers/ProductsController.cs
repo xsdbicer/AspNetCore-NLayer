@@ -59,8 +59,7 @@ namespace NLayer.API.Controllers
             return CreateActionResult(CustomResponseDTO<ProductDTO>.Success(productDTO, 200));
         }
 
-
-
+        
         //POST www.mysite.com/api/products/5
         [HttpPost]
         public async Task<IActionResult> Save(ProductDTO productDTO)

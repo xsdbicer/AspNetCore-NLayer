@@ -10,7 +10,7 @@ namespace NLayer.API.Filters
         {
             
               //Service katmanında yazdığım validation kodları çalışırken çıkan hatalar direkt olarak modelstate ile entegre çalışıyor ve yükleniyor.
-            if(context.ModelState.IsValid)
+            if(!context.ModelState.IsValid)
             {
                 var errors=context.ModelState.Values.SelectMany(x => x.Errors).Select(x=>x.ErrorMessage).ToList();
 
