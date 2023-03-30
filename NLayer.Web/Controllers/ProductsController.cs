@@ -41,10 +41,38 @@ namespace NLayer.Web.Controllers
                 await _service.AddAsync(_mapper.Map<Product>(productDto));
                 return RedirectToAction(nameof(Index));
             }
+            // TODO: Neden product kaydedip Category listesini view'e gönderiyorum? 
             var categories = await _categoryService.GetAllAsync();
             var categoryDTO = _mapper.Map<List<CategoryDTO>>(categories.ToList());
             ViewBag.Categories = new SelectList(categoryDTO, "Id", "Name");
             return View();
+        }
+        // TODO: her metottan iki tane yazıyoruz birisi http tagli bunların farkı ve amacı ne?
+        public async Task<IActionResult> Update(int id)
+        {
+            var product=await _service.GetByIdAsync(id);
+            var categories= await _categoryService.GetAllAsync();
+            var categoriesDto=_mapper.Map<List<CategoryDTO>>(categories.ToList());
+
+            ViewBag.categories = new SelectList(categoriesDto, "Id", "Name", product.CategoryId);
+            return View(_mapper.Map<ProductDTO>(product));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(ProductDTO productdto)
+        {
+            if (ModelState.IsValid)
+            {
+                await _service.UpdateAsync(_mapper.Map<Product>(productdto));
+                return RedirectToAction(nameof(Index));
+            }
+
+            var categories = await _categoryService.GetAllAsync();
+            var categoriesDto = _mapper.Map<List<CategoryDTO>>(categories.ToList());
+            ViewBag.categories = new SelectList(categoriesDto, "Id", "Name", productdto.CategoryId);
+
+            return View(productdto);
+
         }
     }
 }
