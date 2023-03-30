@@ -9,7 +9,8 @@ namespace NLayer.API.Controllers
     {
         //Nonaction ile bunun bir endpoint olmadığını söylüyoruz. Söylemezsek swagger bunu bir ednpoint olarak algılar ve get veya postu olmadığından hata fırlatır. 
         [NonAction]
-        public IActionResult CreateActionResult<T>(CustomResponseDTO<T> response) {
+        public IActionResult CreateActionResult<T>(CustomResponseDTO<T> response)
+        {
             if (response.StatusCode == 204) return new ObjectResult(null)
             {
                 StatusCode = response.StatusCode,
@@ -19,7 +20,7 @@ namespace NLayer.API.Controllers
             {
                 StatusCode = response.StatusCode,
             };
-           } 
+        }
 
 
     }

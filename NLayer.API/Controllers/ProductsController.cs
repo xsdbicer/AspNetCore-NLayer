@@ -20,7 +20,7 @@ namespace NLayer.API.Controllers
         {
             _mapper = mapper;
             _service = productservice;
-            
+
         }
 
 
@@ -29,7 +29,7 @@ namespace NLayer.API.Controllers
         public async Task<IActionResult> All()
         {
             var products = await _service.GetAllAsync();
-            var productDTOs=_mapper.Map<List<ProductDTO>>(products.ToList());
+            var productDTOs = _mapper.Map<List<ProductDTO>>(products.ToList());
             return CreateActionResult(CustomResponseDTO<List<ProductDTO>>.Success(productDTOs, 200));
             #region Return type
             //CustomBaseController yazmadan önce return tipimiz böyleydi. Eğer CustomBase olmasaydı Created, Badrequest gibi gibi sonuçların hepsi için metotlar belirtmem gerekecekti. !! BP !!
@@ -46,7 +46,7 @@ namespace NLayer.API.Controllers
         }
 
 
-        //TODO: id 20 verdiğimde böyle bir data olmadığı için filterdan dönmeli ve metot çalışmamalıydı. Ama gayet de çalışıyor. Neden?
+        //TODO: id x verdiğimde böyle bir data olmadığı için filterdan dönmeli ve metot çalışmamalıydı. Ama gayet de çalışıyor. Neden?
 
         //Bir filter constructorda parametre alıyorsa direkt olarak veremeyiz serviceFilter üzerinden belirtmem gerekiyor.
         [ServiceFilter(typeof(NotFoundFilter<Product>))]
@@ -55,11 +55,11 @@ namespace NLayer.API.Controllers
         public async Task<IActionResult> GetById(int id)
         {
             var product = await _service.GetByIdAsync(id);
-            var productDTO= _mapper.Map<ProductDTO>(product);
+            var productDTO = _mapper.Map<ProductDTO>(product);
             return CreateActionResult(CustomResponseDTO<ProductDTO>.Success(productDTO, 200));
         }
 
-        
+
         //POST www.mysite.com/api/products/5
         [HttpPost]
         public async Task<IActionResult> Save(ProductDTO productDTO)
@@ -75,7 +75,7 @@ namespace NLayer.API.Controllers
         public async Task<IActionResult> Update(ProductUpdateDTO productDTO)
         {
             await _service.UpdateAsync(_mapper.Map<Product>(productDTO));
-            return CreateActionResult(CustomResponseDTO<NoContentDTO>.Success( 204));
+            return CreateActionResult(CustomResponseDTO<NoContentDTO>.Success(204));
         }
 
         //DELETE www.mysite.com/api/products/5
@@ -85,7 +85,7 @@ namespace NLayer.API.Controllers
             // tabi burada belirtilen product var mı yok mu diye bir kontrol yapmam gerekiyor. İleride bunu revize edeceğiz. v1
             var product = await _service.GetByIdAsync(id);
             await _service.RemoveAsync(product);
-            return CreateActionResult(CustomResponseDTO<NoContentDTO>.Success( 200));
+            return CreateActionResult(CustomResponseDTO<NoContentDTO>.Success(200));
         }
     }
 }

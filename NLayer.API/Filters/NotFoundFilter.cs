@@ -28,9 +28,9 @@ namespace NLayer.API.Filters
                 await next.Invoke();
                 return;
             }
-            var id=(int)idValue;
+            var id = (int)idValue;
 
-            var anyEntity= await _service.AnyAsync(x=>x.Id==id);
+            var anyEntity = await _service.AnyAsync(x => x.Id == id);
 
             if (anyEntity)
             {
@@ -39,7 +39,7 @@ namespace NLayer.API.Filters
             }
 
 
-            context.Result= new NotFoundObjectResult(CustomResponseDTO<NoContentDTO>.Fail($"{typeof(T).Name}  ({id}) not found.",404));
+            context.Result = new NotFoundObjectResult(CustomResponseDTO<NoContentDTO>.Fail($"{typeof(T).Name}  ({id}) not found.", 404));
         }
     }
 }

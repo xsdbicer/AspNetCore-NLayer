@@ -7,23 +7,18 @@ using NLayer.Core.Repositories;
 using NLayer.Core.Services;
 using NLayer.Core.UnitOfWorks;
 using NLayer.Service.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NLayer.Cashing
 {
     // In-memory cashe
     public class ProductServiceWithCashing : IProductService
     {
-        private readonly string CasheProductKey="productsCache";
+        private readonly string CasheProductKey = "productsCache";
 
         private readonly IProductRepository _repository;
         private readonly IMapper _mapper;
-        private readonly IUnitOfWork   _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMemoryCache _cache;
 
         public ProductServiceWithCashing(IProductRepository repository, IMapper mapper, IUnitOfWork unitOfWork, IMemoryCache cache)
@@ -32,7 +27,7 @@ namespace NLayer.Cashing
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _cache = cache;
-            if(!_cache.TryGetValue(CasheProductKey,out _))
+            if (!_cache.TryGetValue(CasheProductKey, out _))
             {
                 _cache.Set(CasheProductKey, _repository.GetProductWithCategory().Result);
             }
@@ -46,7 +41,7 @@ namespace NLayer.Cashing
             return entity;
         }
 
-        
+
         public async Task<Product> AddAsync(Product entity)
         {
             await _repository.AddAsync(entity);
@@ -55,11 +50,11 @@ namespace NLayer.Cashing
             return entity;
         }
 
-        public  IEnumerable<Product> AddRange(IEnumerable<Product> entities)
+        public IEnumerable<Product> AddRange(IEnumerable<Product> entities)
         {
             _repository.AddRange(entities);
-             _unitOfWork.Commit();
-             CasheAllProducts();
+            _unitOfWork.Commit();
+            CasheAllProducts();
             return entities;
         }
 
@@ -91,16 +86,16 @@ namespace NLayer.Cashing
             return Task.FromResult(product);
         }
 
-        public  Task<CustomResponseDTO<List<ProductWithCategoryDTO>>> GetProductWithCategory()
+        public Task<CustomResponseDTO<List<ProductWithCategoryDTO>>> GetProductWithCategory()
         {
             var products = _cache.Get<IEnumerable<Product>>(CasheProductKey);
-            var ProductsWithCategoryDTO=_mapper.Map<List<ProductWithCategoryDTO>>(products);
+            var ProductsWithCategoryDTO = _mapper.Map<List<ProductWithCategoryDTO>>(products);
             return Task.FromResult(CustomResponseDTO<List<ProductWithCategoryDTO>>.Success(ProductsWithCategoryDTO, 200));
         }
 
         public async Task RemoveAsync(Product entity)
         {
-             _repository.Remove(entity); 
+            _repository.Remove(entity);
             await _unitOfWork.CommitAsync();
             await CasheAllProductsAsync();
 
@@ -109,7 +104,7 @@ namespace NLayer.Cashing
         public async Task RemoveRangeAsync(IEnumerable<Product> entities)
         {
             _repository.RemoveRange(entities);
-            await _unitOfWork.CommitAsync();    
+            await _unitOfWork.CommitAsync();
             await CasheAllProductsAsync();
 
         }
@@ -128,11 +123,11 @@ namespace NLayer.Cashing
 
         public async Task CasheAllProductsAsync()
         {
-           await _cache.Set(CasheProductKey,_repository.GetAll().ToListAsync());
+            await _cache.Set(CasheProductKey, _repository.GetAll().ToListAsync());
         }
         public void CasheAllProducts()
         {
-             _cache.Set(CasheProductKey, _repository.GetAll().ToList());
+            _cache.Set(CasheProductKey, _repository.GetAll().ToList());
         }
     }
 }

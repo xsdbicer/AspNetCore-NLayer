@@ -29,13 +29,13 @@ namespace NLayer.API.Middlewares
                     var statusCode = exceptionFeature.Error switch
                     {
                         ClientSideException => 400,
-                        NotFoundException =>404,
+                        NotFoundException => 404,
                         _ => 500
                     };
 
                     context.Response.StatusCode = statusCode;
 
-                    var response = CustomResponseDTO<NoContentDTO>.Fail( exceptionFeature.Error.Message,statusCode);
+                    var response = CustomResponseDTO<NoContentDTO>.Fail(exceptionFeature.Error.Message, statusCode);
 
 
                     // controllerda otomatik olarak verdiğimiz tip json'a çevriliyor. Ama ben burada kendim middleware yazıyorum

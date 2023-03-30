@@ -12,7 +12,7 @@ namespace NLayer.Repository.Repositories
         {
             _context = context;
             _dbSet = _context.Set<T>();
-            
+
         }
 
         public T Add(T entity)
