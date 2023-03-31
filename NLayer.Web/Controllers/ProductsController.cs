@@ -48,6 +48,10 @@ namespace NLayer.Web.Controllers
             return View();
         }
         // TODO: her metottan iki tane yazıyoruz birisi http tagli bunların farkı ve amacı ne?
+        /* TODO: ilk metot update butonuna tıkladığım zaman verileri getiriyor,
+       ikincisi de submitlemek istediğim zaman işlemi dbye yansıtıyor ve route işlemini yapıyor
+         peki bu ikisini tek metotta yapamaz mıydık? [http_] yi tek metota versek ne olur? */
+        [ServiceFilter(typeof(NotFoundFilter<Product>))]
         public async Task<IActionResult> Update(int id)
         {
             var product=await _service.GetByIdAsync(id);
@@ -74,5 +78,17 @@ namespace NLayer.Web.Controllers
             return View(productdto);
 
         }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var product= await _service.GetByIdAsync(id);
+    
+            await _service.RemoveAsync(_mapper.Map<Product>(product));
+
+            return RedirectToAction(nameof(Index));
+
+        }
+
+        
     }
 }
