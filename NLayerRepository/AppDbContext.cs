@@ -26,5 +26,61 @@ namespace NLayer.Repository
 
             base.OnModelCreating(modelBuilder);
         }
+        public override int SaveChanges()
+        {
+            foreach (var item in ChangeTracker.Entries())
+            {
+                if (item.Entity is BaseEntity entityRef)
+                {
+                    switch (item.State)
+                    {
+                        case EntityState.Added:
+                            {
+                                entityRef.CreatedDate = DateTime.Now;
+                                break;
+
+                            }
+                        case EntityState.Modified:
+                            {
+                                Entry(entityRef).Property(x=>x.CreatedDate).IsModified = false;
+                                entityRef.UpdateDate = DateTime.Now;
+                                break;
+                            }
+                    }
+
+                }
+            }
+            return base.SaveChanges();
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+
+            foreach( var item in ChangeTracker.Entries()) 
+            {
+               if(item.Entity is BaseEntity entityRef )
+                {
+                    switch (item.State)
+                    {
+                        case EntityState.Added:
+                            {
+                                entityRef.CreatedDate = DateTime.Now;
+                                break;
+
+                            }
+                            case EntityState.Modified:
+                            {
+                                Entry(entityRef).Property(x=>x.CreatedDate).IsModified= false;
+                                entityRef.UpdateDate = DateTime.Now;
+                                break;
+                            }
+                    }
+
+                }
+            }
+
+
+            return base.SaveChangesAsync(cancellationToken);
+        }
     }
 }
