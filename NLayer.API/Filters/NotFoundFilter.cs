@@ -23,7 +23,7 @@ namespace NLayer.API.Filters
 
             var idValue = context.ActionArguments.Values.FirstOrDefault();
 
-            if (idValue != null)
+            if (idValue == null)
             {
                 await next.Invoke();
                 return;
@@ -39,7 +39,7 @@ namespace NLayer.API.Filters
             }
 
 
-            context.Result = new NotFoundObjectResult(CustomResponseDTO<NoContentDTO>.Fail($"{typeof(T).Name}  ({id}) not found.", 404));
+            context.Result = new NotFoundObjectResult(CustomResponseDTO<NoContentDTO>.Fail($"{typeof(T).Name}({id}) not found.", 404));
         }
     }
 }

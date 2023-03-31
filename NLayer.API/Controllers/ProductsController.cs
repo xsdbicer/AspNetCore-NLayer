@@ -49,8 +49,9 @@ namespace NLayer.API.Controllers
         //TODO: id x verdiğimde böyle bir data olmadığı için filterdan dönmeli ve metot çalışmamalıydı. Ama gayet de çalışıyor. Neden?
 
         //Bir filter constructorda parametre alıyorsa direkt olarak veremeyiz serviceFilter üzerinden belirtmem gerekiyor.
-        [ServiceFilter(typeof(NotFoundFilter<Product>))]
         //GET www.mysite.com/api/products/5
+
+        [ServiceFilter(typeof(NotFoundFilter<Product>))]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -61,6 +62,7 @@ namespace NLayer.API.Controllers
 
 
         //POST www.mysite.com/api/products/5
+
         [HttpPost]
         public async Task<IActionResult> Save(ProductDTO productDTO)
         {
