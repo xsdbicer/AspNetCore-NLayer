@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using NLayer.Cashing;
+using NLayer.Core.DTOs;
 using NLayer.Core.Repositories;
 using NLayer.Core.Services;
 using NLayer.Core.UnitOfWorks;
@@ -20,6 +21,9 @@ namespace NLayer.API.Modules
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
             builder.RegisterGeneric(typeof(GenericRepository<>)).As(typeof(IGenericRepository<>)).InstancePerLifetimeScope();
             builder.RegisterGeneric(typeof(Services<>)).As(typeof(IServices<>)).InstancePerLifetimeScope();
+            builder.RegisterGeneric(typeof(ServiceWithDto<,>)).As(typeof(IServiceWithDto<,>)).InstancePerLifetimeScope();
+            builder.RegisterType<ProductServiceWithDto>().As<IProductServiceWithDto>();
+
 
             var apiAssembly = Assembly.GetExecutingAssembly();
             var repositoryAssembly = Assembly.GetAssembly(typeof(AppDbContext));

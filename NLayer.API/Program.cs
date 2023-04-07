@@ -34,7 +34,10 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddMemoryCache();
 builder.Services.AddScoped(typeof(NotFoundFilter<>));
+
 builder.Services.AddAutoMapper(typeof(MapProfile));
+builder.Services.AddAutoMapper(typeof(ProductProfile));
+
 
 builder.Services.AddDbContext<AppDbContext>(x =>
 {
