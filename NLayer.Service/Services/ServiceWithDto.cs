@@ -33,7 +33,6 @@ namespace NLayer.Core.DTOs
             Entity entity= _mapper.Map<Entity>(dto);
             await _repository.AddAsync(entity);
             await _unitOfWork.CommitAsync();
-            //TODO: Burada entity'yi tekrar map Dto gerekebilir onu bir kontrol et. 
             return CustomResponseDTO<Dto>.Success(dto,StatusCodes.Status200OK);
         }
 

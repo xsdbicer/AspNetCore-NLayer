@@ -16,6 +16,9 @@ namespace NLayer.Core.Services
 
         Task<CustomResponseDTO<ProductDTO>> AddAsync(ProductAddDto dto);
 
+        Task<CustomResponseDTO<IEnumerable<ProductDTO>>> AddRangeAsync(IEnumerable<ProductAddDto> dtos);
+
+
 
     }
 }

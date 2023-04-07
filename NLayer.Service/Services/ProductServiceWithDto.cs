@@ -47,5 +47,15 @@ namespace NLayer.Service.Services
             var productDto = _mapper.Map<ProductDTO>(newEntity);
             return CustomResponseDTO<NoContentDTO>.Success(StatusCodes.Status204NoContent);
         }
+
+        public async Task<CustomResponseDTO<IEnumerable<ProductDTO>>> AddRangeAsync(IEnumerable<ProductAddDto> dtos)
+        {
+            var newEntities = _mapper.Map<IEnumerable<Product>>(dtos);
+            await _productRepository.AddRangeAsync(newEntities);
+            await _unitOfWork.CommitAsync();
+            var ProductDtos = _mapper.Map<List<ProductDTO>>(newEntities);
+            return CustomResponseDTO<IEnumerable<ProductDTO>>.Success(ProductDtos, StatusCodes.Status200OK);
+        }
+
     }
 }
