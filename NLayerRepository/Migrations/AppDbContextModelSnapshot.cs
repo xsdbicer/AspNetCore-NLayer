@@ -69,7 +69,7 @@ namespace NLayer.Repository.Migrations
                         });
                 });
 
-            modelBuilder.Entity("NLayer.Core.Models.Products", b =>
+            modelBuilder.Entity("NLayer.Core.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -108,7 +108,7 @@ namespace NLayer.Repository.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            CreatedDate = new DateTime(2023, 3, 17, 13, 28, 45, 124, DateTimeKind.Local).AddTicks(7652),
+                            CreatedDate = new DateTime(2023, 4, 7, 12, 11, 38, 797, DateTimeKind.Local).AddTicks(7713),
                             Name = "Kalem 1",
                             Price = 100m,
                             Stock = 20,
@@ -118,7 +118,7 @@ namespace NLayer.Repository.Migrations
                         {
                             Id = 2,
                             CategoryId = 1,
-                            CreatedDate = new DateTime(2023, 3, 17, 13, 28, 45, 124, DateTimeKind.Local).AddTicks(7661),
+                            CreatedDate = new DateTime(2023, 4, 7, 12, 11, 38, 797, DateTimeKind.Local).AddTicks(7720),
                             Name = "Kalem 2",
                             Price = 200m,
                             Stock = 20,
@@ -128,7 +128,7 @@ namespace NLayer.Repository.Migrations
                         {
                             Id = 3,
                             CategoryId = 1,
-                            CreatedDate = new DateTime(2023, 3, 17, 13, 28, 45, 124, DateTimeKind.Local).AddTicks(7664),
+                            CreatedDate = new DateTime(2023, 4, 7, 12, 11, 38, 797, DateTimeKind.Local).AddTicks(7721),
                             Name = "Kalem 2",
                             Price = 400m,
                             Stock = 20,
@@ -176,24 +176,26 @@ namespace NLayer.Repository.Migrations
                         });
                 });
 
-            modelBuilder.Entity("NLayer.Core.Models.Products", b =>
+            modelBuilder.Entity("NLayer.Core.Models.Product", b =>
                 {
-                    b.HasOne("NLayer.Core.Models.Category", null)
+                    b.HasOne("NLayer.Core.Models.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("NLayer.Core.Models.ProductFeature", b =>
                 {
-                    b.HasOne("NLayer.Core.Models.Products", "Products")
+                    b.HasOne("NLayer.Core.Models.Product", "Product")
                         .WithOne("ProductFeature")
                         .HasForeignKey("NLayer.Core.Models.ProductFeature", "ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Products");
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("NLayer.Core.Models.Category", b =>
@@ -201,9 +203,10 @@ namespace NLayer.Repository.Migrations
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("NLayer.Core.Models.Products", b =>
+            modelBuilder.Entity("NLayer.Core.Models.Product", b =>
                 {
-                    b.Navigation("ProductFeature");
+                    b.Navigation("ProductFeature")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

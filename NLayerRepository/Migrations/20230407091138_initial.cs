@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -88,9 +89,9 @@ namespace NLayer.Repository.Migrations
                 columns: new[] { "Id", "CategoryId", "CreatedDate", "Name", "Price", "Stock", "UpdateDate" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2023, 3, 17, 13, 28, 45, 124, DateTimeKind.Local).AddTicks(7652), "Kalem 1", 100m, 20, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 2, 1, new DateTime(2023, 3, 17, 13, 28, 45, 124, DateTimeKind.Local).AddTicks(7661), "Kalem 2", 200m, 20, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 3, 1, new DateTime(2023, 3, 17, 13, 28, 45, 124, DateTimeKind.Local).AddTicks(7664), "Kalem 2", 400m, 20, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { 1, 1, new DateTime(2023, 4, 7, 12, 11, 38, 797, DateTimeKind.Local).AddTicks(7713), "Kalem 1", 100m, 20, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2, 1, new DateTime(2023, 4, 7, 12, 11, 38, 797, DateTimeKind.Local).AddTicks(7720), "Kalem 2", 200m, 20, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 3, 1, new DateTime(2023, 4, 7, 12, 11, 38, 797, DateTimeKind.Local).AddTicks(7721), "Kalem 2", 400m, 20, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(
