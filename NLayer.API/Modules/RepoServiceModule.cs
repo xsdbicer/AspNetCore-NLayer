@@ -35,7 +35,6 @@ namespace NLayer.API.Modules
 
             builder.RegisterType<ProductServiceWithCashing>().As<IProductService>();
 
-            
             //builder.RegisterType<ProductServiceWithNoCaching>().As< IProductService > ();
             base.Load(builder);
         }

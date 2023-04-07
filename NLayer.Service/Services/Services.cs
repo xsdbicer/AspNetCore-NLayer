@@ -17,35 +17,30 @@ namespace NLayer.Service.Services
             _unitOfWork = unitOfWork;
             _repository = repository;
         }
-
         public T Add(T entity)
         {
             _repository.Add(entity);
             _repository.SaveChange();
             return entity;
         }
-
         public async Task<T> AddAsync(T entity)
         {
             await _repository.AddAsync(entity);
             await _repository.SaveChangeAsync();
             return entity;
         }
-
         public IEnumerable<T> AddRange(IEnumerable<T> entities)
         {
             _repository.AddRange(entities);
             _unitOfWork.Commit();
             return entities;
         }
-
         public async Task<IEnumerable<T>> AddRangeAsync(IEnumerable<T> entities)
         {
             await _repository.AddRangeAsync(entities);
             await _unitOfWork.CommitAsync();
             return entities;
         }
-
         public async Task<bool> AnyAsync(Expression<Func<T, bool>> expression)
         {
             return await _repository.AnyAsync(expression);

@@ -5,11 +5,6 @@ using NLayer.Core.Models;
 using NLayer.Core.Repositories;
 using NLayer.Core.Services;
 using NLayer.Core.UnitOfWorks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NLayer.Service.Services
 {
@@ -23,13 +18,13 @@ namespace NLayer.Service.Services
 
         public async Task<CustomResponseDTO<ProductDTO>> AddAsync(ProductAddDto dto)
         {
-            var entity= _mapper.Map<Product>(dto);
+            var entity = _mapper.Map<Product>(dto);
             await _productRepository.AddAsync(entity);
             await _unitOfWork.CommitAsync();
             var ProductDto = _mapper.Map<ProductDTO>(entity);
             return CustomResponseDTO<ProductDTO>.Success(ProductDto, StatusCodes.Status200OK);
 
-            
+
         }
 
         public async Task<CustomResponseDTO<List<ProductWithCategoryDTO>>> GetProductWithCategory()
@@ -41,13 +36,12 @@ namespace NLayer.Service.Services
 
         public async Task<CustomResponseDTO<NoContentDTO>> UpdateAsync(ProductUpdateDTO dto)
         {
-            var newEntity=_mapper.Map<Product>(dto);
-             _productRepository.Update(newEntity);
+            var newEntity = _mapper.Map<Product>(dto);
+            _productRepository.Update(newEntity);
             await _unitOfWork.CommitAsync();
             var productDto = _mapper.Map<ProductDTO>(newEntity);
             return CustomResponseDTO<NoContentDTO>.Success(StatusCodes.Status204NoContent);
         }
-
         public async Task<CustomResponseDTO<IEnumerable<ProductDTO>>> AddRangeAsync(IEnumerable<ProductAddDto> dtos)
         {
             var newEntities = _mapper.Map<IEnumerable<Product>>(dtos);

@@ -5,12 +5,7 @@ using NLayer.Core.Models;
 using NLayer.Core.Repositories;
 using NLayer.Core.Services;
 using NLayer.Core.UnitOfWorks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NLayer.Core.DTOs
 {
@@ -27,55 +22,54 @@ namespace NLayer.Core.DTOs
             _unitOfWork = unitOfWork;
             _repository = repository;
         }
-
         public async Task<CustomResponseDTO<Dto>> AddAsync(Dto dto)
         {
-            Entity entity= _mapper.Map<Entity>(dto);
+            Entity entity = _mapper.Map<Entity>(dto);
             await _repository.AddAsync(entity);
             await _unitOfWork.CommitAsync();
-            return CustomResponseDTO<Dto>.Success(dto,StatusCodes.Status200OK);
+            return CustomResponseDTO<Dto>.Success(dto, StatusCodes.Status200OK);
         }
 
         public async Task<CustomResponseDTO<IEnumerable<Dto>>> AddRangeAsync(IEnumerable<Dto> dtos)
         {
-            var newEntities=_mapper.Map<IEnumerable<Entity>>(dtos);
+            var newEntities = _mapper.Map<IEnumerable<Entity>>(dtos);
             await _repository.AddRangeAsync(newEntities);
             await _unitOfWork.CommitAsync();
-            return CustomResponseDTO<IEnumerable<Dto>>.Success(dtos,StatusCodes.Status200OK);
+            return CustomResponseDTO<IEnumerable<Dto>>.Success(dtos, StatusCodes.Status200OK);
         }
 
         public async Task<CustomResponseDTO<bool>> AnyAsync(Expression<Func<Entity, bool>> expression)
         {
             var AnyEntity = await _repository.AnyAsync(expression);
-            return  CustomResponseDTO<bool>.Success(AnyEntity,StatusCodes.Status200OK);
+            return CustomResponseDTO<bool>.Success(AnyEntity, StatusCodes.Status200OK);
         }
 
         public async Task<CustomResponseDTO<IEnumerable<Dto>>> GetAllAsync()
         {
-            var entities =await _repository.GetAll().ToListAsync();
+            var entities = await _repository.GetAll().ToListAsync();
             var dtos = _mapper.Map<IEnumerable<Dto>>(entities);
             return CustomResponseDTO<IEnumerable<Dto>>.Success(dtos, StatusCodes.Status200OK);
-            
+
         }
 
         public async Task<CustomResponseDTO<Dto>> GetByIdAsync(int id)
         {
-            var entity= await _repository.GetByIdAsync(id);
-            var dto=_mapper.Map<Dto>(entity);
+            var entity = await _repository.GetByIdAsync(id);
+            var dto = _mapper.Map<Dto>(entity);
             return CustomResponseDTO<Dto>.Success(dto, StatusCodes.Status200OK);
         }
 
         public async Task<CustomResponseDTO<NoContentDTO>> RemoveAsync(int id)
         {
             var entity = await _repository.GetByIdAsync(id);
-             _repository.Remove(entity);
+            _repository.Remove(entity);
             await _unitOfWork.CommitAsync();
             return CustomResponseDTO<NoContentDTO>.Success(StatusCodes.Status204NoContent);
         }
 
         public async Task<CustomResponseDTO<NoContentDTO>> RemoveRangeAsync(IEnumerable<int> ids)
         {
-            var entities= await _repository.Where(x=>ids.Contains(x.Id)).ToListAsync();
+            var entities = await _repository.Where(x => ids.Contains(x.Id)).ToListAsync();
             _repository.RemoveRange(entities);
             await _unitOfWork.CommitAsync();
             return CustomResponseDTO<NoContentDTO>.Success(StatusCodes.Status204NoContent);
@@ -83,7 +77,7 @@ namespace NLayer.Core.DTOs
 
         public async Task<CustomResponseDTO<NoContentDTO>> UpdateAsync(Dto dto)
         {
-            var entity= _mapper.Map<Entity>(dto);
+            var entity = _mapper.Map<Entity>(dto);
             _repository.Update(entity);
             await _unitOfWork.CommitAsync();
             return CustomResponseDTO<NoContentDTO>.Success(StatusCodes.Status204NoContent);
@@ -92,8 +86,8 @@ namespace NLayer.Core.DTOs
 
         public async Task<CustomResponseDTO<IEnumerable<Dto>>> Where(Expression<Func<Entity, bool>> expression)
         {
-            var entities= await _repository.Where(expression).ToListAsync();
-            var dtos= _mapper.Map<IEnumerable<Dto>>(entities);
+            var entities = await _repository.Where(expression).ToListAsync();
+            var dtos = _mapper.Map<IEnumerable<Dto>>(entities);
             return CustomResponseDTO<IEnumerable<Dto>>.Success(dtos, StatusCodes.Status200OK);
         }
     }

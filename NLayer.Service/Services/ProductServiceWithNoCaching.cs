@@ -17,7 +17,6 @@ namespace NLayer.Service.Services
             _productRepository = productRepository;
             _mapper = mapper;
         }
-
         public async Task<CustomResponseDTO<List<ProductWithCategoryDTO>>> GetProductWithCategory()
         {
             var products = await _productRepository.GetProductWithCategory();

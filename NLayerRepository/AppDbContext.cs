@@ -19,12 +19,13 @@ namespace NLayer.Repository
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<ProductFeature> ProductFeatures { get; set; } 
+        public DbSet<ProductFeature> ProductFeatures { get; set; }
         #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //Bu assembly IEntityConfiguration interface'ine sahip olan bütün classları getiriyor. 
+            //Bu assembly IEntityConfiguration interface'ine sahip olan bütün classları getiriyor.
+            //TODO:Seed data ve congifurationsları efcore'a bildirebilmek için bunu kullanmak mı zorundayım?
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
 
@@ -35,19 +36,19 @@ namespace NLayer.Repository
             //TODO: ChangeTracker ???
             foreach (var item in ChangeTracker.Entries())
             {
-                if(item.Entity is BaseEntity entityRef)
+                if (item.Entity is BaseEntity entityRef)
                 {
-                    switch(item.State)
+                    switch (item.State)
                     {
                         case EntityState.Added:
                             {
-                                Entry(entityRef).Property(x=>x.UpdateDate).IsModified = false;
+                                Entry(entityRef).Property(x => x.UpdateDate).IsModified = false;
                                 entityRef.CreatedDate = DateTime.Now;
                                 break;
                             }
-                            case EntityState.Modified:
+                        case EntityState.Modified:
                             {
-                                Entry(entityRef).Property(x=>x.CreatedDate).IsModified = false;
+                                Entry(entityRef).Property(x => x.CreatedDate).IsModified = false;
                                 entityRef.UpdateDate = DateTime.Now;
                                 break;
                             }
@@ -59,10 +60,11 @@ namespace NLayer.Repository
         }
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            foreach (var item in ChangeTracker.Entries()) {
+            foreach (var item in ChangeTracker.Entries())
+            {
                 if (item.Entity is BaseEntity entryRef)
                 {
-                    switch(item.State)
+                    switch (item.State)
                     {
                         case EntityState.Added:
                             {
@@ -70,9 +72,9 @@ namespace NLayer.Repository
                                 entryRef.CreatedDate = DateTime.Now;
                                 break;
                             }
-                     case EntityState.Modified:
+                        case EntityState.Modified:
                             {
-                                Entry(entryRef).Property(x => x.CreatedDate).IsModified= false;
+                                Entry(entryRef).Property(x => x.CreatedDate).IsModified = false;
                                 entryRef.UpdateDate = DateTime.Now;
                                 break;
                             }

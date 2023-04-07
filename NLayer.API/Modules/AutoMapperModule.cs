@@ -4,9 +4,9 @@ using NLayer.Service.Mapping;
 
 namespace NLayer.API.Modules
 {
-    public class AutoMapperModule:Module
+    public class AutoMapperModule : Module
     {
-        //TODO: AutoMapper classları buraya al
+        
         protected override void Load(ContainerBuilder builder)
         {
 
@@ -19,7 +19,7 @@ namespace NLayer.API.Modules
             });
 
             builder.RegisterInstance<IMapper>(mappingConfig.CreateMapper());
-            
+
             base.Load(builder);
         }
     }

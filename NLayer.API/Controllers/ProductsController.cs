@@ -23,7 +23,6 @@ namespace NLayer.API.Controllers
 
         }
 
-
         //GET www.mysite.com/api/products
         [HttpGet]
         public async Task<IActionResult> All()
@@ -37,7 +36,6 @@ namespace NLayer.API.Controllers
             #endregion
         }
 
-
         //GET www.mysite.com/api/products/GetProductWithCategory
         [HttpGet("[action]")]
         public async Task<IActionResult> GetProductWithCategory()
@@ -45,12 +43,10 @@ namespace NLayer.API.Controllers
             return CreateActionResult(await _service.GetProductWithCategory());
         }
 
-
         //TODO: id x verdiğimde böyle bir data olmadığı için filterdan dönmeli ve metot çalışmamalıydı. Ama gayet de çalışıyor. Neden?
 
         //Bir filter constructorda parametre alıyorsa direkt olarak veremeyiz serviceFilter üzerinden belirtmem gerekiyor.
         //GET www.mysite.com/api/products/5
-
         [ServiceFilter(typeof(NotFoundFilter<Product>))]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
@@ -60,9 +56,7 @@ namespace NLayer.API.Controllers
             return CreateActionResult(CustomResponseDTO<ProductDTO>.Success(productDTO, 200));
         }
 
-
         //POST www.mysite.com/api/products/5
-
         [HttpPost]
         public async Task<IActionResult> Save(ProductDTO productDTO)
         {
@@ -70,8 +64,6 @@ namespace NLayer.API.Controllers
             var productsDTO = _mapper.Map<ProductDTO>(product);
             return CreateActionResult(CustomResponseDTO<ProductDTO>.Success(productsDTO, 201));
         }
-
-
 
         [HttpPut]
         public async Task<IActionResult> Update(ProductUpdateDTO productDTO)

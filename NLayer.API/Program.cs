@@ -7,37 +7,29 @@ using NLayer.API.Filters;
 using NLayer.API.Middlewares;
 using NLayer.API.Modules;
 using NLayer.Repository;
-using NLayer.Service.Mapping;
 using NLayer.Service.Validations;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllers();
-//TODO: !!!!!!
+/*TODO:Middleware çalýþma þekli yüzünden tanýmlanma sýrasý önemli.
+Peki genel olarak bahsedersek neyi hangi sýrayla yazmalýyýz ve burada tanýmlý middleware'lar kaba haliyle ne iþ yapýyor */
+//TODO: Filterlarý da module olarak Modules klasörüne almak istersem nasýl alacaðým? 
 
 builder.Services.AddControllers(opt => opt.Filters.Add(new ValidateFilterAttribute()))
     .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<ProductDTOValidator>());
-
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
     options.SuppressModelStateInvalidFilter = true;
 });
 
-
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
 builder.Services.AddMemoryCache();
 builder.Services.AddScoped(typeof(NotFoundFilter<>));
-
-//builder.Services.AddAutoMapper(typeof(CategoryProfile));
-//builder.Services.AddAutoMapper(typeof(ProductProfile));
-
 
 builder.Services.AddDbContext<AppDbContext>(x =>
 {
@@ -52,9 +44,7 @@ builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder => containerB
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder => containerBuilder.RegisterModule(new AutoMapperModule()));
 
 
-
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

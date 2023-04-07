@@ -32,11 +32,10 @@ namespace NLayer.API.Middlewares
                         NotFoundException => 404,
                         _ => 500
                     };
-
+                    //TODO: Buradaki NotFoundException ve filterlardaki NotFoundFilter arasındaki fark ne?
                     context.Response.StatusCode = statusCode;
 
                     var response = CustomResponseDTO<NoContentDTO>.Fail(exceptionFeature.Error.Message, statusCode);
-
 
                     // controllerda otomatik olarak verdiğimiz tip json'a çevriliyor. Ama ben burada kendim middleware yazıyorum
                     //yani kendim çevirmem gerekiyor. 
