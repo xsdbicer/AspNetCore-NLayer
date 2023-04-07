@@ -4,14 +4,14 @@ using NLayer.Core.Models;
 
 namespace NLayer.Service.Mapping
 {
-    public class MapProfile : Profile
+    public class CategoryProfile : Profile
     {
-        public MapProfile()
+        public CategoryProfile()
         {
             CreateMap<Category, CategoryDTO>().ReverseMap();
             CreateMap<Category, CategoryWithProductsDTO>();
 
-            CreateMap<ProductFeature, ProductFeatureDTO>().ReverseMap();
+            
 
 
         }

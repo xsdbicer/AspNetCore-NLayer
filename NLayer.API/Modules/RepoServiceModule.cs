@@ -27,13 +27,15 @@ namespace NLayer.API.Modules
 
             var apiAssembly = Assembly.GetExecutingAssembly();
             var repositoryAssembly = Assembly.GetAssembly(typeof(AppDbContext));
-            var serviceAssembly = Assembly.GetAssembly(typeof(MapProfile));
+            var serviceAssembly = Assembly.GetAssembly(typeof(CategoryProfile));
 
             builder.RegisterAssemblyTypes(apiAssembly, serviceAssembly, repositoryAssembly).Where(x => x.Name.EndsWith("Repository")).AsImplementedInterfaces().InstancePerLifetimeScope();
 
             builder.RegisterAssemblyTypes(apiAssembly, serviceAssembly, repositoryAssembly).Where(x => x.Name.EndsWith("Service")).AsImplementedInterfaces().InstancePerLifetimeScope();
 
             builder.RegisterType<ProductServiceWithCashing>().As<IProductService>();
+
+            
             //builder.RegisterType<ProductServiceWithNoCaching>().As< IProductService > ();
             base.Load(builder);
         }

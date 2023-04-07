@@ -68,7 +68,6 @@ namespace NLayer.API.Controllers
             return CreateActionResult(await _productServiceWithDto.RemoveAsync(id));
         }
 
-        // TODO: Productaddeddto
         [HttpPost("SaveAll")]
         public async Task<IActionResult> Save(IEnumerable<ProductAddDto> productsDtos) {
             return CreateActionResult(await _productServiceWithDto.AddRangeAsync(productsDtos));
