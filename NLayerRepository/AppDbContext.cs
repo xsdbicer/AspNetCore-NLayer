@@ -33,7 +33,8 @@ namespace NLayer.Repository
         }
         public override int SaveChanges()
         {
-            //TODO: ChangeTracker ???
+            //ChangeTracker: DbContext instance'larıyla çalışan her varlığın durumunu izler. modelState= Added,Modified vs. 
+            #region Date Setter
             foreach (var item in ChangeTracker.Entries())
             {
                 if (item.Entity is BaseEntity entityRef)
@@ -54,12 +55,14 @@ namespace NLayer.Repository
                             }
                     }
                 }
-            }
+            } 
+            #endregion
 
             return base.SaveChanges();
         }
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
+            #region Date Setter
             foreach (var item in ChangeTracker.Entries())
             {
                 if (item.Entity is BaseEntity entryRef)
@@ -80,7 +83,8 @@ namespace NLayer.Repository
                             }
                     }
                 }
-            }
+            } 
+            #endregion
             return base.SaveChangesAsync(cancellationToken);
         }
     }

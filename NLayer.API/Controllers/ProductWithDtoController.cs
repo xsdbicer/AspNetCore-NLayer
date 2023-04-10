@@ -6,7 +6,7 @@ using NLayer.Core.Services;
 
 namespace NLayer.API.Controllers
 {
-    // TODO: Controller'dan mapping işlemlerini kaldırdık v2 !! BP !!
+    //Controller'dan mapping işlemlerini kaldırdık v2 !! BP !!
     public class ProductWithDtoController : CustomBaseController
     {
         private readonly IProductServiceWithDto _productServiceWithDto;
