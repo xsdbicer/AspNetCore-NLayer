@@ -15,5 +15,7 @@ namespace NLayer.Repository.Repositories
             //Eager Loading
             return await _context.Products.Include(x => x.Category).ToListAsync();
         }
+
+
     }
 }

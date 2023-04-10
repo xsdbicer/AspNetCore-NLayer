@@ -49,7 +49,7 @@ namespace NLayer.Web.Controllers
         /* TODO: ilk metot update butonuna tıkladığım zaman verileri getiriyor,
        ikincisi de submitlemek istediğim zaman işlemi dbye yansıtıyor ve route işlemini yapıyor
          peki bu ikisini tek metotta yapamaz mıydık? [http_] yi tek metota versek ne olur? */
-        [ServiceFilter(typeof(NotFoundFilter<Product>))]
+        [ServiceFilter(typeof(NotFoundFilter<Product,ProductDTO>))]
         public async Task<IActionResult> Update(int id)
         {
             var product=await _productApiService.GetByIdAsync(id);

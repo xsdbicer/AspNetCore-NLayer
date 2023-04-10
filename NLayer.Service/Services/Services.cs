@@ -1,4 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using NLayer.Core.DTOs;
+using NLayer.Core.Models;
 using NLayer.Core.Repositories;
 using NLayer.Core.Services;
 using NLayer.Core.UnitOfWorks;
@@ -7,86 +11,84 @@ using System.Linq.Expressions;
 
 namespace NLayer.Service.Services
 {
-    public class Services<T> : IServices<T> where T : class
+    public class Services<InT,OutT> : IServices<InT, OutT> where InT : BaseEntity where OutT : class
     {
-        private readonly IGenericRepository<T> _repository;
-        private readonly IUnitOfWork _unitOfWork;
+       
+        private readonly IGenericRepository<InT> _repository;
+        protected readonly IMapper _mapper;
+        protected readonly IUnitOfWork _unitOfWork;
 
-        public Services(IUnitOfWork unitOfWork, IGenericRepository<T> repository)
+        public Services(IUnitOfWork unitOfWork, IMapper mapper, IGenericRepository<InT> repository)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
             _repository = repository;
         }
 
-        public T Add(T entity)
+        public async Task<CustomResponseDTO<OutT>> AddAsync(OutT entity)
         {
-            _repository.Add(entity);
-            _repository.SaveChange();
-            return entity;
-        }
-
-        public async Task<T> AddAsync(T entity)
-        {
-            await _repository.AddAsync(entity);
-            await _repository.SaveChangeAsync();
-            return entity;
-        }
-
-        public IEnumerable<T> AddRange(IEnumerable<T> entities)
-        {
-            _repository.AddRange(entities);
-            _unitOfWork.Commit();
-            return entities;
-        }
-
-        public async Task<IEnumerable<T>> AddRangeAsync(IEnumerable<T> entities)
-        {
-            await _repository.AddRangeAsync(entities);
+            var NewEntity = _mapper.Map<InT>(entity);
+            await _repository.AddAsync(NewEntity);
             await _unitOfWork.CommitAsync();
-            return entities;
+            return CustomResponseDTO<OutT>.Success(entity, StatusCodes.Status200OK);
+
         }
 
-        public async Task<bool> AnyAsync(Expression<Func<T, bool>> expression)
+        public async Task<CustomResponseDTO<IEnumerable<OutT>>> AddRangeAsync(IEnumerable<OutT> entities)
         {
-            return await _repository.AnyAsync(expression);
+            var NewEntities= _mapper.Map<IEnumerable<InT>>(entities);
+            await _repository.AddRangeAsync(NewEntities);
+            await _unitOfWork.CommitAsync();
+            return CustomResponseDTO<IEnumerable<OutT>>.Success(entities, StatusCodes.Status200OK);
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public async Task<CustomResponseDTO<bool>> AnyAsync(Expression<Func<InT, bool>> expression)
         {
-            return await _repository.GetAll().ToListAsync();
+            var any= await _repository.AnyAsync(expression);
+            return CustomResponseDTO<bool>.Success(any, StatusCodes.Status200OK);
         }
 
-        public async Task<T> GetByIdAsync(int id)
+        public async Task<CustomResponseDTO<IEnumerable<OutT>>> GetAllAsync()
         {
-            var hasProduct = await _repository.GetByIdAsync(id);
-            if (hasProduct == null)
-            {
-                throw new NotFoundException($"{typeof(T).Name} not found");
-            }
-            return hasProduct;
+            var entities= await _repository.GetAll().ToListAsync();
+            var entitiesDto = _mapper.Map<IEnumerable<OutT>>(entities);
+            return CustomResponseDTO<IEnumerable<OutT>>.Success(entitiesDto, StatusCodes.Status200OK);
         }
 
-        public async Task RemoveAsync(T entity)
+        public async Task<CustomResponseDTO<OutT>> GetByIdAsync(int id)
         {
+            var entity=await _repository.GetByIdAsync(id);
+            var entityDto=_mapper.Map<OutT>(entity);
+            return CustomResponseDTO<OutT>.Success(entityDto,StatusCodes.Status200OK);
+        }
+
+        public async Task<CustomResponseDTO<NoContentDTO>> RemoveAsync(int id)
+        {
+            var entity= await _repository.GetByIdAsync(id);
             _repository.Remove(entity);
             await _unitOfWork.CommitAsync();
+            return CustomResponseDTO<NoContentDTO>.Success(StatusCodes.Status204NoContent);
         }
 
-        public async Task RemoveRangeAsync(IEnumerable<T> entities)
+        public async Task<CustomResponseDTO<NoContentDTO>> RemoveRangeAsync(IEnumerable<int> ids)
         {
+            var entities= await _repository.Where(x=>ids.Contains(x.Id)).ToListAsync();
             _repository.RemoveRange(entities);
             await _unitOfWork.CommitAsync();
+            return CustomResponseDTO<NoContentDTO>.Success(StatusCodes.Status204NoContent);
         }
 
-        public async Task UpdateAsync(T entity)
+        public async Task<CustomResponseDTO<NoContentDTO>> UpdateAsync(OutT entity)
         {
-            _repository.Update(entity);
+            var UpdateEntity = _mapper.Map<InT>(entity);
+            _repository.Update(UpdateEntity);
             await _unitOfWork.CommitAsync();
+            return CustomResponseDTO<NoContentDTO>.Success(StatusCodes.Status204NoContent);
         }
 
-        public IQueryable<T> Where(Expression<Func<T, bool>> expression)
+        public CustomResponseDTO<IQueryable<InT>> Where(Expression<Func<InT, bool>> expression)
         {
-            return _repository.Where(expression);
+            throw new NotImplementedException();
         }
     }
 }

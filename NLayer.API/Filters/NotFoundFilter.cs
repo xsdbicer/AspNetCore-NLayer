@@ -6,11 +6,11 @@ using NLayer.Core.Services;
 
 namespace NLayer.API.Filters
 {
-    public class NotFoundFilter<T> : IAsyncActionFilter where T : BaseEntity
+    public class NotFoundFilter<T,outT> : IAsyncActionFilter where T : BaseEntity where outT: class
     {
-        private readonly IServices<T> _service;
+        private readonly IServices<T, outT> _service;
 
-        public NotFoundFilter(IServices<T> service)
+        public NotFoundFilter(IServices<T, outT> service)
         {
             _service = service;
         }
@@ -32,7 +32,7 @@ namespace NLayer.API.Filters
 
             var anyEntity= await _service.AnyAsync(x=>x.Id==id);
 
-            if (anyEntity)
+            if (anyEntity.Data)
             {
                 await next.Invoke();
                 return;

@@ -6,8 +6,8 @@ namespace NLayer.Core.Services
 {
     public interface IServices<InT,OutT> where InT : BaseEntity where OutT : class
     {
-        Task<CustomResponseDTO<InT>> GetByIdAsync(int id);
-        Task<CustomResponseDTO<IEnumerable<InT>>> GetAllAsync();
+        Task<CustomResponseDTO<OutT>> GetByIdAsync(int id);
+        Task<CustomResponseDTO<IEnumerable<OutT>>> GetAllAsync();
         CustomResponseDTO<IQueryable<InT>> Where(Expression<Func<InT, bool>> expression);
         Task<CustomResponseDTO<bool>> AnyAsync(Expression<Func<InT, bool>> expression);
         Task<CustomResponseDTO<OutT>> AddAsync(OutT entity);

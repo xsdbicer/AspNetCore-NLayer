@@ -12,7 +12,7 @@ using System.Linq.Expressions;
 namespace NLayer.Cashing
 {
     // In-memory cashe
-    public class ProductServiceWithCashing : IProductService
+    public class ProductServiceWithCashing 
     {
         private readonly string CasheProductKey = "productsCache";
 

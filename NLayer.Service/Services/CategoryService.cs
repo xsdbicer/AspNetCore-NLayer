@@ -7,13 +7,13 @@ using NLayer.Core.UnitOfWorks;
 
 namespace NLayer.Service.Services
 {
-    public class CategoryService : Services<Category>, ICategoryService
+    public class CategoryService : Services<Category,CategoryDTO>, ICategoryService
     {
         //mapper
         //repository
         private readonly ICategoryRepository _categoryRepository;
         private readonly IMapper _mapper;
-        public CategoryService(IUnitOfWork unitOfWork, IGenericRepository<Category> repository, ICategoryRepository ProductRepository, IMapper mapper) : base(unitOfWork, repository)
+        public CategoryService(IUnitOfWork unitOfWork, IGenericRepository<Category> repository, ICategoryRepository ProductRepository, IMapper mapper) : base(unitOfWork, mapper, repository)
         {
             _categoryRepository = ProductRepository;
             _mapper = mapper;

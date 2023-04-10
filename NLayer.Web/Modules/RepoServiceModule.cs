@@ -18,7 +18,7 @@ namespace NLayer.Web.Modules
         {
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
             builder.RegisterGeneric(typeof(GenericRepository<>)).As(typeof(IGenericRepository<>)).InstancePerLifetimeScope();
-            builder.RegisterGeneric(typeof(Services<>)).As(typeof(IServices<>)).InstancePerLifetimeScope();
+            builder.RegisterGeneric(typeof(Services<,>)).As(typeof(IServices<,>)).InstancePerLifetimeScope();
 
             var apiAssembly = Assembly.GetExecutingAssembly();
             var repositoryAssembly = Assembly.GetAssembly(typeof(AppDbContext));
