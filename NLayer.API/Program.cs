@@ -15,7 +15,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
-//TODO: !!!!!!
 
 builder.Services.AddControllers(opt => opt.Filters.Add(new ValidateFilterAttribute()))
     .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<ProductDTOValidator>());

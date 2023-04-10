@@ -46,8 +46,6 @@ namespace NLayer.API.Controllers
         }
 
 
-        //TODO: id x verdiğimde böyle bir data olmadığı için filterdan dönmeli ve metot çalışmamalıydı. Ama gayet de çalışıyor. Neden?
-
         //Bir filter constructorda parametre alıyorsa direkt olarak veremeyiz serviceFilter üzerinden belirtmem gerekiyor.
         //GET www.mysite.com/api/products/5
 
