@@ -40,7 +40,7 @@ namespace NLayer.Web.Controllers
                 await _productApiService.Save(productDto);
                 return RedirectToAction(nameof(Index));
             }
-            // TODO: Neden product kaydedip Category listesini view'e gönderiyorum? 
+            // TODO: Neden product kaydedip Category listesini view'e gönderiyorum? Her seferinde selectListi güncellemek için sanırım.
             var categoryDTO = await _categoryApiService.GetAllAsync();
             ViewBag.Categories = new SelectList(categoryDTO, "Id", "Name");
             return View();

@@ -23,7 +23,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 
-//TODO: !!!!!!
 
 //builder.Services.AddControllers(options => options.Filters.Add(new ValidateFilterAttribute()))
 //    .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<ProductDTOValidator>());
