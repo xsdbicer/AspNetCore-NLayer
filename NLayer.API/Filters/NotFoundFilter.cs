@@ -23,7 +23,7 @@ namespace NLayer.API.Filters
 
             var idValue = context.ActionArguments.Values.FirstOrDefault();
 
-            if (idValue != null)
+            if (idValue == null)
             {
                 await next.Invoke();
                 return;

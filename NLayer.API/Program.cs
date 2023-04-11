@@ -24,14 +24,14 @@ builder.Services.AddControllers();
 
 
 
-//builder.Services.AddControllers(options => options.Filters.Add(new ValidateFilterAttribute()))
-//    .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<ProductDTOValidator>());
+builder.Services.AddControllers(options => options.Filters.Add(new ValidateFilterAttribute()))
+    .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<ProductDTOValidator>());
 
 
-//builder.Services.Configure<ApiBehaviorOptions>(options =>
-//{
-//    options.SuppressModelStateInvalidFilter = true;
-//});
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
+});
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
