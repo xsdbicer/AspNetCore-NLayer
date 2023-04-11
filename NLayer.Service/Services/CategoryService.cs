@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using NLayer.Core.DTOs;
+using NLayer.Core.DTOs.AddDto;
 using NLayer.Core.Models;
 using NLayer.Core.Repositories;
 using NLayer.Core.Services;
@@ -17,6 +19,15 @@ namespace NLayer.Service.Services
         {
             _categoryRepository = ProductRepository;
             _mapper = mapper;
+        }
+
+        public async Task<CustomResponseDTO<CategoryDTO>> AddAsync(CategoryAddDto dto)
+        {
+            var category=_mapper.Map<Category>(dto);
+            await _categoryRepository.AddAsync(category);
+            await _unitOfWork.CommitAsync();
+            var categoryDto = _mapper.Map<CategoryDTO>(category);
+            return CustomResponseDTO<CategoryDTO>.Success(categoryDto, StatusCodes.Status200OK);
         }
 
         public async Task<CustomResponseDTO<CategoryWithProductsDTO>> GetSingleCategoryByIdWithProducts(int categoryId)

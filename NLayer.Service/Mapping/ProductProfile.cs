@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using NLayer.Core.DTOs;
+using NLayer.Core.DTOs.AddDto;
 using NLayer.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace NLayer.Service.Mapping
         public ProductProfile()
         {
             CreateMap<Product, ProductDTO>().ReverseMap();
+            CreateMap<ProductAddDto, Product>();
             CreateMap<ProductUpdateDTO, Product>();
             CreateMap<Product, ProductWithCategoryDTO>();
         }

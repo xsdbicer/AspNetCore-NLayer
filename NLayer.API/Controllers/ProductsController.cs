@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using NLayer.API.Filters;
 using NLayer.Core.DTOs;
+using NLayer.Core.DTOs.AddDto;
 using NLayer.Core.Models;
 using NLayer.Core.Services;
 
@@ -60,7 +61,7 @@ namespace NLayer.API.Controllers
 
         //POST www.mysite.com/api/products/5
         [HttpPost]
-        public async Task<IActionResult> Save(ProductDTO productDTO)
+        public async Task<IActionResult> Save(ProductAddDto productDTO)
         {
             
             return CreateActionResult(await _service.AddAsync(productDTO));
@@ -73,7 +74,7 @@ namespace NLayer.API.Controllers
         {
 
             //TODO productUpdateDto
-            return CreateActionResult(await _service.Update(productDTO));
+            return CreateActionResult(await _service.UpdateAsync(productDTO));
         }
 
         //DELETE www.mysite.com/api/products/5

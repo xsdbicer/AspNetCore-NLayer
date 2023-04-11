@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NLayer.Core.DTOs;
+using NLayer.Core.DTOs.AddDto;
 using NLayer.Core.Services;
 
 namespace NLayer.API.Controllers
@@ -30,6 +31,12 @@ namespace NLayer.API.Controllers
         public async Task<IActionResult> GetSingleCategoryByIdWithProducts(int categoryId)
         {
             return CreateActionResult(await _categoryService.GetSingleCategoryByIdWithProducts(categoryId));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddCategory(CategoryAddDto entity)
+        {
+            return CreateActionResult(await _categoryService.AddAsync(entity));
         }
 
     }
