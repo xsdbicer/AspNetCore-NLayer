@@ -22,7 +22,7 @@ namespace NLayer.Web.Modules
 
             var apiAssembly = Assembly.GetExecutingAssembly();
             var repositoryAssembly = Assembly.GetAssembly(typeof(AppDbContext));
-            var serviceAssembly = Assembly.GetAssembly(typeof(MapProfile));
+            var serviceAssembly = Assembly.GetAssembly(typeof(ProductFeatureProfile));
 
             builder.RegisterAssemblyTypes(apiAssembly, serviceAssembly, repositoryAssembly).Where(x => x.Name.EndsWith("Repository")).AsImplementedInterfaces().InstancePerLifetimeScope();
 
