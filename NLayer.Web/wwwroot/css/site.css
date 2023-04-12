@@ -24,13 +24,36 @@ a.navbar-brand{
     text-align:center;
     word-break:break-all;
     
+    
 }
 
 .container-fluid {
-    background-color: aqua;
+    background-color:mediumseagreen;
 }
 
 .nav-item {
     font-family: 'Yellowtail',cursive;
     font-size:medium;
+}
+
+.table {
+    background-color:aliceblue;
+    font-size:20px;
+}
+.display-4 {
+    font-family: 'Yellowtail',cursive;
+    font-size: xx-large;
+    text-align: center;
+    word-break: break-all;
+}
+.text-center{
+    background-color:honeydew
+}
+
+.form-group{
+    margin: 15px;
+}
+
+.btn{
+    margin:15px;
 }
