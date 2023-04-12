@@ -75,7 +75,7 @@ namespace NLayer.Repository.Migrations
 
             migrationBuilder.InsertData(
                 table: "Categories",
-                columns: new[] { "Id", "CreatedDate", "Name", "UpdateDate" },
+                columns: new[] { "Id", "CreatedDate", "Name", "UpdatedDate" },
                 values: new object[,]
                 {
                     { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kalemler", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
@@ -85,7 +85,7 @@ namespace NLayer.Repository.Migrations
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "Id", "CategoryId", "CreatedDate", "Name", "Price", "Stock", "UpdateDate" },
+                columns: new[] { "Id", "CategoryId", "CreatedDate", "Name", "Price", "Stock", "UpdatedDate" },
                 values: new object[,]
                 {
                     { 1, 1, new DateTime(2023, 3, 17, 13, 28, 45, 124, DateTimeKind.Local).AddTicks(7652), "Kalem 1", 100m, 20, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },

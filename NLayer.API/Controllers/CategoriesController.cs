@@ -26,6 +26,12 @@ namespace NLayer.API.Controllers
             return CreateActionResult(await _categoryService.GetAllAsync());
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetByIdAsync(int id)
+        {
+            return CreateActionResult(await _categoryService.GetByIdAsync(id));
+        }
+
         //api/categories/GetSingleCategoryByIdWithProducts/2
         [HttpGet("[action]/{categoryId}")]
         public async Task<IActionResult> GetSingleCategoryByIdWithProducts(int categoryId)
@@ -39,5 +45,16 @@ namespace NLayer.API.Controllers
             return CreateActionResult(await _categoryService.AddAsync(entity));
         }
 
+        [HttpPut]
+        public async Task<IActionResult> Update(CategoryDTO dto)
+        {
+            return CreateActionResult(await _categoryService.UpdateAsync(dto));
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            return CreateActionResult(await _categoryService.RemoveAsync(id));  
+        }
     }
 }
